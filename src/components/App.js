@@ -21,57 +21,75 @@ const App = () => {
   const [rainbow, setRainbow] = useState([]);
   const [waterfall, setWaterfall] = useState([]);
   const [search, setSearch] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  //The method fetches the Sunset topic link
+  //This method fetches the Sunset topic link
   const fetchSunset = async () => {
-    const fetchSunset = await fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=sunset&per_page=24&format=json&nojsoncallback=1`
-    );
-    const result = await fetchSunset.json();
-    const sunset = result.photos.photo;
-    setSunset(sunset);
+    try {
+      const fetchSunset = await fetch(
+        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=sunset&per_page=24&format=json&nojsoncallback=1`
+      );
+      const result = await fetchSunset.json();
+      const sunset = result.photos.photo;
+      setSunset(sunset);
+    } catch (error) {
+      console.log("Error occurred while fetching and parsing the data", error);
+    }
   };
 
   //This method fetches the Rainbow topic link
   const fetchRainbow = async () => {
-    const fetchRainbow = await fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=rainbow&per_page=24&format=json&nojsoncallback=1`
-    );
-    const result = await fetchRainbow.json();
-    const rainbow = result.photos.photo;
-    setRainbow(rainbow);
+    try {
+      const fetchRainbow = await fetch(
+        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=rainbow&per_page=24&format=json&nojsoncallback=1`
+      );
+      const result = await fetchRainbow.json();
+      const rainbow = result.photos.photo;
+      setRainbow(rainbow);
+    } catch (error) {
+      console.log("Error occurred while fetching and parsing data", error);
+    }
   };
 
   //This method fetches the Waterfall topic link
 
   const fetchWaterfall = async () => {
-    const fetchWaterfall = await fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=waterfall&per_page=24&format=json&nojsoncallback=1`
-    );
-    const result = await fetchWaterfall.json();
-    const waterfall = result.photos.photo;
-    setWaterfall(waterfall);
+    try {
+      const fetchWaterfall = await fetch(
+        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=waterfall&per_page=24&format=json&nojsoncallback=1`
+      );
+      const result = await fetchWaterfall.json();
+      const waterfall = result.photos.photo;
+      setWaterfall(waterfall);
+    } catch (error) {
+      console.log("Error occurred while fetching and parsing data", error);
+    }
   };
 
   const performSearch = async (query) => {
-    const performSearch = await fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=${query}&per_page=2&format=json&nojsoncallback=1`
-    );
-    const fetchResult = await performSearch.json();
-    const searchResult = fetchResult.photos.photo;
-    console.log(searchResult);
-    setSearch(searchResult);
+    try {
+      const performSearch = await fetch(
+        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`
+      );
+      const fetchResult = await performSearch.json();
+      const searchResult = fetchResult.photos.photo;
+      setSearch(searchResult);
+      setLoading(false);
+    } catch (error) {
+      console.log("Error occurred while fetching and parsing data", error);
+    }
   };
 
   return (
     <BrowserRouter>
       <div className="container">
+        <SearchForm search={performSearch} loading={loading} />
         <Nav />
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/rainbow" />} />
           <Route
-            path="/search"
-            render={() => <SearchForm search={performSearch} />}
+            path="/search/:query"
+            render={() => <PhotoContainer flickrs={search} loading={loading} />}
           />
           <Route
             path="/rainbow"
