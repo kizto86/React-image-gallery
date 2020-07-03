@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
 
-const SearchForm = ({ search }) => {
+const SearchForm = ({ search, history }) => {
   const [value, setValue] = useState({});
 
   //updates the form with the text users types in the input field
@@ -14,17 +14,17 @@ const SearchForm = ({ search }) => {
     e.preventDefault();
     search(value);
     let searchInput = value;
-    let path = `search/${searchInput}`;
-    this.props.history.push(path);
+    let path = `/search/${searchInput}`;
+    history.push(path);
     e.currentTarget.reset();
   };
 
   return (
-    <form className="search-form" onSubmit={() => handleSubmit}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <label className="is-hidden" htmlFor="search"></label>
       <input
         type="search"
-        onChange={() => onSearchChange}
+        onChange={onSearchChange}
         name="search"
         placeholder="Search..."
       />
