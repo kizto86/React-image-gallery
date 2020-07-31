@@ -29,7 +29,6 @@ const SearchForm = ({ search, history }) => {
         placeholder="Search..."
       />
       <button type="submit" id="submit" className="search-button">
-        <i className="material-icons icn-search">search</i>
         <svg
           fill="#fff"
           height="24"

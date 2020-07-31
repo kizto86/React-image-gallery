@@ -7,6 +7,10 @@ import PhotoContainer from "./PhotoContainer";
 import SearchForm from "./SearchForm";
 import NoTFound from "./NotFound";
 
+const sunsetUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=sunset&per_page=24&format=json&nojsoncallback=1`;
+const rainbowUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=rainbow&per_page=24&format=json&nojsoncallback=1`;
+const waterfallUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=waterfall&per_page=24&format=json&nojsoncallback=1`;
+
 const App = () => {
   //loads the data immediately the App component is mounted to the DOM
   useEffect(() => {
@@ -26,9 +30,7 @@ const App = () => {
   //This method fetches the Sunset topic link
   const fetchSunset = async () => {
     try {
-      const fetchSunset = await fetch(
-        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=sunset&per_page=24&format=json&nojsoncallback=1`
-      );
+      const fetchSunset = await fetch(sunsetUrl);
       const result = await fetchSunset.json();
       const sunset = result.photos.photo;
       setSunset(sunset);
@@ -40,9 +42,7 @@ const App = () => {
   //This method fetches the Rainbow topic link
   const fetchRainbow = async () => {
     try {
-      const fetchRainbow = await fetch(
-        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=rainbow&per_page=24&format=json&nojsoncallback=1`
-      );
+      const fetchRainbow = await fetch(rainbowUrl);
       const result = await fetchRainbow.json();
       const rainbow = result.photos.photo;
       setRainbow(rainbow);
@@ -55,9 +55,7 @@ const App = () => {
 
   const fetchWaterfall = async () => {
     try {
-      const fetchWaterfall = await fetch(
-        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apikey}&tags=waterfall&per_page=24&format=json&nojsoncallback=1`
-      );
+      const fetchWaterfall = await fetch(waterfallUrl);
       const result = await fetchWaterfall.json();
       const waterfall = result.photos.photo;
       setWaterfall(waterfall);
@@ -93,15 +91,19 @@ const App = () => {
           />
           <Route
             path="/rainbow"
-            render={() => <PhotoContainer flickrs={rainbow} />}
+            render={() => (
+              <PhotoContainer flickrs={rainbow} loading={loading} />
+            )}
           />
           <Route
             path="/sunset"
-            render={() => <PhotoContainer flickrs={sunset} />}
+            render={() => <PhotoContainer flickrs={sunset} loading={loading} />}
           />
           <Route
             path="/waterfall"
-            render={() => <PhotoContainer flickrs={waterfall} />}
+            render={() => (
+              <PhotoContainer flickrs={waterfall} loading={loading} />
+            )}
           />
           <Route component={NoTFound} />
         </Switch>
