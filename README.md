@@ -1,21 +1,26 @@
 ## Flickr Gallery
 
-# Flickr gallery is an image gallery created with the React Library Flickr API
+Flickr gallery is an image gallery created with the React Library and the Flickr API.
 
 ## Features
 
-# Get random images which are displayed under 3 default themes implemented as route using the React Router
+Get random images which are displayed under 3 default themes implemented as route using the React Router.
 
-# A search field to search for new categories of images.
+A search field to search for new categories of images.
 
-## Installation
+## Get Started
 
-Step1: open up the terminal and cd into the flickr-gallery folder
+step 1: To install the project dependencies from your terminal you can run:
 
-step 2: run npm install
+### `npm install`
 
-step 3: create a config.js file in the src folder
+step 2: create a config.js file in the src folder, add the flickr api key into config.js like so: const apiKey = ''; export default apiKey;
 
-step 4: add the api key into config.js like so: const apiKey = ''; export default apiKey;
+step 3: To start the project in the browser, from the project directory, you can run:
 
-step 5: run npm start
+### `npm start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
