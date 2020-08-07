@@ -9,12 +9,13 @@ const navStyle = {
 const PhotoContainer = ({ flickrs, loading }) => {
   let data = flickrs;
   let result;
+  console.log(data);
 
   if (data.length > 0) {
-    result = data.map((flickr) => (
+    result = data.map((photo) => (
       <Photo
-        key={flickr.id.toString()}
-        photo={`https://farm${flickr.farm}.staticflickr.com/${flickr.server}/${flickr.id}_${flickr.secret}.jpg`}
+        key={photo.id.toString()}
+        photo={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
       />
     ));
   } else {
