@@ -1,17 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Photo from "./Photo";
 import NoResult from "./NoResult";
 
-const navStyle = {
-  color: "green",
-};
-
-const PhotoContainer = ({ flickrs, loading }) => {
-  let data = flickrs;
+const PhotoContainer = ({ flickr, loading }) => {
+  let data = flickr;
   let result;
-  console.log(data);
+  let notFound;
 
-  if (data.length > 0) {
+  if (flickr.length > 0) {
     result = data.map((photo) => (
       <Photo
         key={photo.id.toString()}
@@ -19,13 +15,16 @@ const PhotoContainer = ({ flickrs, loading }) => {
       />
     ));
   } else {
-    result = <NoResult />;
+    notFound = <NoResult />;
   }
-
-  return (
-    <Fragment>
-      {loading ? <h1 style={navStyle}>Loading........</h1> : <ul>{result} </ul>}
-    </Fragment>
-  );
+  if (loading === false) {
+    return (
+      <div className="photo-container">
+        <ul className="photo-list">{result}</ul>
+      </div>
+    );
+  } else {
+    return <h2>Loading..........</h2>;
+  }
 };
 export default PhotoContainer;
