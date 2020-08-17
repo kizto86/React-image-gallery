@@ -5,9 +5,8 @@ import NoResult from "./NoResult";
 const PhotoContainer = ({ flickr, loading }) => {
   let data = flickr;
   let result;
-  let notFound;
 
-  if (flickr.length > 0) {
+  if (data.length > 6) {
     result = data.map((photo) => (
       <Photo
         key={photo.id.toString()}
@@ -15,7 +14,7 @@ const PhotoContainer = ({ flickr, loading }) => {
       />
     ));
   } else {
-    notFound = <NoResult />;
+    result = <NoResult />;
   }
   if (loading === false) {
     return (
@@ -24,7 +23,11 @@ const PhotoContainer = ({ flickr, loading }) => {
       </div>
     );
   } else {
-    return <h2>Loading..........</h2>;
+    return (
+      <div className="photo-container">
+        <h2>Loading..............</h2>
+      </div>
+    );
   }
 };
 export default PhotoContainer;
