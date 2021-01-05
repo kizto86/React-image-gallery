@@ -1,6 +1,11 @@
-## Flickr Gallery
+## React Gallery App
 
-Flickr gallery is an image gallery created with the React Library and the Flickr API.
+React gallery app is an image gallery created with the React Library and the Flickr API.
+
+## Technologies Used
+
+React Library,
+Flickr API
 
 ## Features
 
